@@ -13,13 +13,18 @@
     var modalLocation = $(this).attr('data-reveal-id');
     $('#' + modalLocation).reveal($(this).data());
   });
+  
+  $('.close-reveal-all-modal').live('click', function (event) {
+    $('.reveal-modal').trigger('reveal:close');
+  });
 
   $.fn.reveal = function (options) {
     var defaults = {
       animation: 'fadeAndPop',                // fade, fadeAndPop, none
       animationSpeed: 300,                    // how fast animtions are
       closeOnBackgroundClick: true,           // if you click background will modal close?
-      dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
+      dismissModalClass: 'close-reveal-modal', // the class of a button or element that will close an open modal
+      closeAll: true
     };
     var options = $.extend({}, defaults, options);
 
@@ -98,13 +103,21 @@
       modal.trigger('reveal:open');
 
       var closeButton = $('.' + options.dismissModalClass).bind('click.modalEvent', function () {
-        modal.trigger('reveal:close');
+        if( options.closeAll ){
+          $('.reveal-modal').trigger('reveal:close');
+        }else{
+          modal.trigger('reveal:close');
+        }
       });
 
       if (options.closeOnBackgroundClick) {
         modalBg.css({"cursor": "pointer"});
         modalBg.bind('click.modalEvent', function () {
-          modal.trigger('reveal:close');
+          if( options.closeAll ){
+            $('.reveal-modal').trigger('reveal:close');
+          }else{
+            modal.trigger('reveal:close');
+          }
         });
       }
 
