@@ -17,3 +17,8 @@
 <li>Add lightbox feature to make it easy to hookup custom data attributes to a lightbox functionality </li>
 <li>Fix IE background to have opacity</li>
 </ul>
+
+I add the function to close all modals when click on background or close button.
+You can use multiple modal, view the demo.
+
+Only jquery support.
